@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Asana.Maui.Views.ProjectToDosView"
+             Title="ToDos in Project"
+             NavigatedTo="ContentPage_NavigatedTo">
+    <VerticalStackLayout>
+        <ListView x:Name="ToDoList"
+          ItemsSource="{Binding ToDos}"
+          SelectedItem="{Binding SelectedToDo}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox Grid.Column="0" IsChecked="{Binding Model.IsCompleted}" IsEnabled="False"/>
+
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" TextColor="Red" Text="{Binding Model.Name}"/>
+                                <Label Grid.Row="1" Text="{Binding Model.Description}"/>
+                            </Grid>
+
+                            <Label Grid.Column="2" Text="{Binding Model.DueDate, StringFormat='{0:yyyy-MM-dd}'}"/>
+                            <Label Grid.Column="3" Text="{Binding Model.Priority, StringFormat='Priority: {0}'}"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Text="Add ToDo" Clicked="AddClicked"/>
+        <Button Text="Edit ToDo" Clicked="EditClicked"/>
+        <Button Text="Delete ToDo" Clicked="DeleteClicked"/>
+        <Button Text="Back to Projects" Clicked="BackClicked"/>
+    </VerticalStackLayout>
+</ContentPage>
